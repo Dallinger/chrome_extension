@@ -1,0 +1,35 @@
+{
+  "name": "Dallinger Remote Reporting",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Allows Dallinger social science experiments to request access to modify arbitrary websites",
+  "homepage_url": "http://dallinger.readthedocs.io",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Dallinger data reporting",
+    "default_popup": "src/inject/status.html"
+  },
+  "permissions": [
+    "tabs",
+    "https://*.herokuapp.com/*"
+  ],
+  "optional_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}
