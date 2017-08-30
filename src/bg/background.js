@@ -24,7 +24,7 @@ function matchPatternToRegExp(pattern) {
   const [ , scheme, host, path, ] = match;
   return new RegExp('^(?:'
     + (scheme === '*' ? 'https?' : escape(scheme)) + ':\\/\\/'
-    + (host === '*' ? "[^\\/]*" : escape(host).replace(/^\*\./g, '(?:[^\\/]+)?'))
+    + (host === '*' ? "[^\\/]*" : escape(host).replace(/^\*\./g, '(?:[^\\/]+)?').replace(/%3A/, ':'))
     + (path ? (path == '*' ? '(?:\\/.*)?' : ('\\/' + escape(path).replace(/\*/g, '.*'))) : '\\/?')
     + ')$');
 }
