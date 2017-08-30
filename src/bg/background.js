@@ -45,9 +45,9 @@ chrome.runtime.onMessage.addListener(
       chrome.permissions.getAll(
         function (permissions) {
           for (var i = 0; i < permissions.origins.length; i++) {
-            if (response.origins[i] != 'https://*.herokuapp.com/*') {
+            if (permissions.origins[i] != 'https://*.herokuapp.com/*') {
               chrome.permissions.remove({
-                origins: [response.origins[i]]
+                origins: [permissions.origins[i]]
               });
             }
           }
@@ -60,6 +60,8 @@ chrome.runtime.onMessage.addListener(
           sendResponse(permissions);
         }
       );
+    } else if (request.type == 'ping') {
+      sendResponse();
     };
     return true;
   }
@@ -77,12 +79,12 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
               if (tab.url.indexOf('https://dlgr-')) {
                 // Only inject the dallinger admin script if using https and on
                 // a dlgr-*.herokuapp.com domain
-                chrome.tabs.executeScript(null, {file: "src/inject/inject-dlgr.js"});                
+                chrome.tabs.executeScript(tabId, {file: "src/inject/inject-dlgr.js"});
               }
             } else {
               // Otherwise, inject the watcher script
               chrome.pageAction.show(tabId);
-              chrome.tabs.executeScript(null, {file: "src/inject/inject-mitm.js"});
+              chrome.tabs.executeScript(tabId, {file: "src/inject/inject-mitm.js"});
             }
           }
         }
