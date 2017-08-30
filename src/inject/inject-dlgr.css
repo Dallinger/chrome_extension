@@ -1,0 +1,6 @@
+.missing-dallinger-extension {
+    display: none !important;
+}
+.requires-dallinger-extension {
+    display: initial !important;
+}

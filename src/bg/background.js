@@ -80,6 +80,7 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
                 // Only inject the dallinger admin script if using https and on
                 // a dlgr-*.herokuapp.com domain
                 chrome.tabs.executeScript(tabId, {file: "src/inject/inject-dlgr.js"});
+                chrome.tabs.insertCSS(tabId, {file: "src/inject/inject-dlgr.css"});
               }
             } else {
               // Otherwise, inject the watcher script
