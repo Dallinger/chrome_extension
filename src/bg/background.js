@@ -73,10 +73,10 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
       function (permissions) {
         for (var i = 0; i < permissions.origins.length; i++) {
           if (tab.url.match(matchPatternToRegExp(permissions.origins[i]))) {
-            if (permissions.origins[i] == 'https://*.herokuapp.com/*') {
+            if (permissions.origins[i] == 'https://*.herokuapp.com/*' || permissions.origins[i].indexOf('http://127.0.0.1')==0) {
               // The herokuapp origin is the only one where dallinger experiments
               // can live
-              if (tab.url.indexOf('https://dlgr-')) {
+              if (tab.url.indexOf('https://dlgr-') || tab.url.indexOf('http://127.0.0.1')) {
                 // Only inject the dallinger admin script if using https and on
                 // a dlgr-*.herokuapp.com domain
                 chrome.tabs.executeScript(tabId, {file: "src/inject/inject-dlgr.js"});

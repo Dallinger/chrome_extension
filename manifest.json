@@ -26,7 +26,8 @@
   },
   "permissions": [
     "tabs",
-    "https://*.herokuapp.com/*"
+    "https://*.herokuapp.com/*",
+    "http://127.0.0.1:5000/*"
   ],
   "optional_permissions": [
     "http://*/*",
