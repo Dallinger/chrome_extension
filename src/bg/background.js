@@ -36,6 +36,9 @@ chrome.runtime.onMessage.addListener(
     if (request.type == 'request') {
       chrome.permissions.request({
         origins: request.gain_access
+      }, function(granted) {
+        // The callback argument will be true if the user granted the permissions.
+        sendResponse({success: granted});
       });
       sendResponse();
     } else if (request.type == 'end') {

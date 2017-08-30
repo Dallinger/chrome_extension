@@ -17,12 +17,17 @@ chrome.extension.sendMessage({}, function(response) {
 			**/ 
 			document.getElementById('request-external-monitoring').onclick=function(evt) {
 				console.log("Enabling experiment integration");
+				var button = this;
 				chrome.runtime.sendMessage(
 					{
 						type: 'request',
 						gain_access: this.dataset.urls.split(';')
 					}, function(response) {
-
+						if (response.success) {
+							eval(button.dataset.onapproved);
+						} else {
+							eval(button.dataset.onrejected);
+						}
 					}
 				);
 				evt.preventDefault();
