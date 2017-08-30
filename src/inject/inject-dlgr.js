@@ -11,7 +11,9 @@ chrome.extension.sendMessage({type: 'ping'}, function(response) {
 			 *  attributes and id e.g.:
 			 * 
 			 *  <button id="request-external-monitoring"
-			 * 			data-urls="https://*.wikipedia.org/*;https://www.bbc.co.uk/news/*">
+			 * 			data-urls="https://*.wikipedia.org/*;https://www.bbc.co.uk/news/*"
+			 * 			data-onApproved="alert('good');"
+			 * 			data-onRejected="alert('bad');">
 			 *  	Allow access
 			 *  </button>
 			**/ 
