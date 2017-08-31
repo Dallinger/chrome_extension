@@ -25,6 +25,7 @@
     "default_popup": "src/inject/status.html"
   },
   "permissions": [
+    "storage",
     "tabs",
     "https://*.herokuapp.com/*"
   ],

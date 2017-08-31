@@ -6,8 +6,8 @@
             }
             #resetbutton {
                 background-color: lightcoral;
-                font-size: 14pt;
-                width: 170px;
+                font-size: 12pt;
+                width: 200px;
                 text-align: center;
                 border: 1px solid red;
                 padding: 5px;
@@ -15,6 +15,11 @@
             }
             p.actions {
                 text-align: center;
+            }
+            blockquote {
+                border-left: 5px solid lightgray;
+                padding: 5px;
+                margin: 10px;
             }
         </style>
     </head>
@@ -26,9 +31,13 @@
         </ul>
         </p>
 
+        <h3>Instructions:</h3>
+        <blockquote id="instructions"></blockquote>
+        
         <p class="actions">
-            <button id="resetbutton">End experiment</button>
+            <button id="resetbutton">Stop monitoring and end experiment</button>
         </p>
+
         <script src="popup.js"></script>
         
     </body>

@@ -38,9 +38,15 @@ chrome.runtime.onMessage.addListener(
         origins: request.gain_access
       }, function(granted) {
         // The callback argument will be true if the user granted the permissions.
+        if (granted) {
+          chrome.storage.sync.set({
+            experiment_url: request.experimenturl,
+            participant_id: request.participantid,
+            instructions: request.instructions
+          });
+        };
         sendResponse({success: granted});
       });
-      sendResponse();
     } else if (request.type == 'end') {
       chrome.permissions.getAll(
         function (permissions) {

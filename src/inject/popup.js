@@ -14,6 +14,13 @@ chrome.runtime.sendMessage(
     }
 );
 
+chrome.storage.sync.get([
+    'experiment_url',
+    'participant_id',
+    'instructions'], function (items) {
+        document.getElementById('instructions').innerText = items['instructions'];
+})
+
 
 document.getElementById('resetbutton').onclick = function (evt) {
     chrome.runtime.sendMessage(
