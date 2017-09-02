@@ -1,4 +1,4 @@
-chrome.extension.sendMessage({}, function(response) {
+chrome.extension.sendMessage({type: 'ping'}, function(response) {
 	var readyStateCheckInterval = setInterval(function() {
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
@@ -12,7 +12,9 @@ chrome.extension.sendMessage({}, function(response) {
             document.getElementsByTagName('head')[0].appendChild(script);
         });
 		console.log("Monitoring this site.");
-		chrome.pageAction.show(tabId);
+        if (chrome.pageAction) {
+            chrome.pageAction.show(tabId);
+        }
 	}
 	}, 10);
 });

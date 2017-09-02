@@ -30,36 +30,41 @@ chrome.extension.sendMessage({type: 'ping'}, function(response) {
 			 * 		});
 			 *  </script>
 			**/ 
-			document.getElementById('request-external-monitoring').onclick=function(evt) {
-				console.log("Enabling experiment integration");
-				var button = this;
-				chrome.runtime.sendMessage(
-					{
-						type: 'request',
-						gain_access: this.dataset.urls.split(';'),
-						experiment_url: this.dataset.experimenturl,
-						participant_id: this.dataset.participantid,
-						instructions: this.dataset.instructions
-					}, function(response) {
-						var event = document.createEvent('Event');
-						if (response.success) {
-							event.initEvent('approved', true, true);
-						} else {
-							event.initEvent('rejected', true, true);
-						};
-						button.dispatchEvent(event);
-					}
-				);
-				evt.preventDefault();
-				return;
-			};
+			var monitor_button = document.getElementById('request-external-monitoring');
+			if (monitor_button) {
+				monitor_button.onclick = function(evt) {
+					console.log("Enabling experiment integration");
+					var button = this;
+					chrome.runtime.sendMessage(
+						{
+							type: 'request',
+							gain_access: this.dataset.urls.split(';'),
+							experiment_url: this.dataset.experimenturl,
+							participant_id: this.dataset.participantid,
+							instructions: this.dataset.instructions
+						}, function(response) {
+							var event = document.createEvent('Event');
+							if (response.success) {
+								event.initEvent('approved', true, true);
+							} else {
+								event.initEvent('rejected', true, true);
+							};
+							button.dispatchEvent(event);
+						}
+					);
+					evt.preventDefault();
+					return;
+				};
+			}
 
-			document.getElementById('end-external-monitoring').onclick=function(evt) {
-				console.log("Ending experiment integration");
-				chrome.runtime.sendMessage({type: 'end'});
-				return;
-			};
-
+			var end_button = document.getElementById('end-external-monitoring');
+			if (end_button) {
+				end_button.onclick = function(evt) {
+					console.log("Ending experiment integration");
+					chrome.runtime.sendMessage({type: 'end'});
+					return;
+				};
+			}
 		}
 	}, 10);
 });

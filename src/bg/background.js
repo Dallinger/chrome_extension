@@ -40,8 +40,8 @@ chrome.runtime.onMessage.addListener(
         // The callback argument will be true if the user granted the permissions.
         if (granted) {
           chrome.storage.sync.set({
-            experiment_url: request.experimenturl,
-            participant_id: request.participantid,
+            experiment_url: request.experiment_url,
+            participant_id: request.participant_id,
             instructions: request.instructions
           });
         };
@@ -79,10 +79,10 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
       function (permissions) {
         for (var i = 0; i < permissions.origins.length; i++) {
           if (tab.url.match(matchPatternToRegExp(permissions.origins[i]))) {
-            if (permissions.origins[i] == 'https://*.herokuapp.com/*') {
+            if (permissions.origins[i] == 'https://*.herokuapp.com/*' || permissions.origins[i] == 'http://0.0.0.0:5000/*') {
               // The herokuapp origin is the only one where dallinger experiments
               // can live
-              if (tab.url.indexOf('https://dlgr-') !== -1) {
+              if (tab.url.indexOf('https://dlgr-') !== -1 || tab.url.indexOf('http://0.0.0.0:5000') !== -1 ) {
                 // Only inject the dallinger admin script if using https and on
                 // a dlgr-*.herokuapp.com domain
                 chrome.tabs.executeScript(tabId, {file: "src/inject/inject-dlgr.js"});
@@ -90,12 +90,17 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
               }
             } else {
               // Otherwise, inject the watcher script
-              chrome.pageAction.show(tabId);
-              chrome.tabs.executeScript(tabId, {file: "src/inject/inject-mitm.js"});
+              chrome.storage.sync.get(['experiment_url'], function (vals) {
+                var experiment_url = (vals.experiment_url || '').replace(/\/$/, "");
+                if (experiment_url) {
+                  chrome.pageAction.show(tabId);
+                  chrome.tabs.executeScript(tabId, {file: "src/inject/inject-mitm.js"});
+                }
+              });
             }
           }
         }
       }
     );
   }
-})
+});

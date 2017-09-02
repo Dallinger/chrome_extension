@@ -27,7 +27,8 @@
   "permissions": [
     "storage",
     "tabs",
-    "https://*.herokuapp.com/*"
+    "https://*.herokuapp.com/*",
+    "http://0.0.0.0:5000/*"
   ],
   "optional_permissions": [
     "http://*/*",
