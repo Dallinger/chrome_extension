@@ -16,7 +16,7 @@ chrome.runtime.sendMessage(
 
 chrome.storage.sync.get([
     'experiment_url',
-    'participant_id',
+    'node_id',
     'instructions'], function (items) {
         document.getElementById('instructions').innerText = items['instructions'];
 })

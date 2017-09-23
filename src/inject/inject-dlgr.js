@@ -12,8 +12,8 @@ chrome.extension.sendMessage({type: 'ping'}, function(response) {
 			 * 
 			 *  <button id="request-external-monitoring"
 			 * 			data-urls="https://*.wikipedia.org/*;https://www.bbc.co.uk/news/*"
-			 * 			data-experimentURL="https://dlgr-xxxxxx.herokuapp.com"
-			 * 			data-participantId="2"
+			 * 			data-experimenturl="https://dlgr-xxxxxx.herokuapp.com"
+			 * 			data-nodeid="2"
 			 * 			data-instructions="Lorem ipsum dolor sit amet">
 			 *  	Allow access
 			 *  </button>
@@ -40,7 +40,7 @@ chrome.extension.sendMessage({type: 'ping'}, function(response) {
 							type: 'request',
 							gain_access: this.dataset.urls.split(';'),
 							experiment_url: this.dataset.experimenturl,
-							participant_id: this.dataset.participantid,
+							node_id: this.dataset.nodeid,
 							instructions: this.dataset.instructions
 						}, function(response) {
 							var event = document.createEvent('Event');

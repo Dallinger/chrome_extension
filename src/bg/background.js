@@ -41,7 +41,7 @@ chrome.runtime.onMessage.addListener(
         if (granted) {
           chrome.storage.sync.set({
             experiment_url: request.experiment_url,
-            participant_id: request.participant_id,
+            node_id: request.node_id,
             instructions: request.instructions
           });
         };
